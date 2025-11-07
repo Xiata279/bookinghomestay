@@ -1,0 +1,15 @@
+﻿<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    // Tùy chỉnh thông báo lỗi validation
+    $(document).ready(function () {
+        $.validator.setDefaults({
+            errorClass: 'text-danger',
+            errorElement: 'div',
+            errorPlacement: function (error, element) {
+                error.insertAfter(element);
+            }
+        });
+    });
+</script>

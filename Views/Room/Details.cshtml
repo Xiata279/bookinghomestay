@@ -1,0 +1,65 @@
+@model BookingHomestay.ViewModels.RoomViewModel
+
+@{
+    ViewData["Title"] = "Chi tiết phòng";
+}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Chi tiết phòng: @Model.RoomName</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@(Model.ImageUrl ?? "/images/default-room.jpg")" class="img-fluid rounded" alt="@Model.RoomName" style="max-height: 400px; object-fit: cover;" />
+        </div>
+        <div class="col-md-6">
+            <h3>@Model.RoomName</h3>
+            <p><strong>Khách sạn:</strong> @Model.Hotel.HotelName</p>
+            <p><strong>Địa điểm:</strong> @(Model.Location != null ? Model.Location.City : "Không xác định")</p>
+            <p><strong>Loại phòng:</strong> @Model.RoomType</p>
+            <p><strong>Số phòng:</strong> @Model.RoomNumber</p>
+            <p><strong>Giá:</strong> @Model.Price.ToString("N0") VNĐ</p>
+            <p><strong>Trạng thái:</strong> @Model.AvailabilityStatus</p>
+            <p><strong>Mô tả:</strong> @(Model.Description ?? "Không có mô tả")</p>
+            <p><strong>Ngày tạo:</strong> @Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")</p>
+            <a asp-action="BookRoom" asp-route-roomId="@Model.RoomId" class="btn btn-primary">Đặt phòng</a>
+            <a asp-action="AddReview" asp-route-roomId="@Model.RoomId" class="btn btn-secondary">Đánh giá</a>
+        </div>
+    </div>
+
+    <!-- Hiển thị gallery -->
+    @if (Model.Gallery.Any())
+    {
+        <div class="row mt-5">
+            <h3>Hình ảnh</h3>
+            @foreach (var image in Model.Gallery)
+            {
+                <div class="col-md-4 mb-4">
+                    <img src="@image.ImageUrl" class="img-fluid rounded" alt="@image.Description" style="max-height: 200px; object-fit: cover;" />
+                    <p>@image.Description</p>
+                </div>
+            }
+        </div>
+    }
+
+    <!-- Hiển thị đánh giá -->
+    @if (Model.Reviews.Any())
+    {
+        <div class="row mt-5">
+            <h3>Đánh giá</h3>
+            @foreach (var review in Model.Reviews)
+            {
+                <div class="col-md-12 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@review.Title</h5>
+                            <p class="card-text"><strong>Khách hàng:</strong> @(review.Customer?.FullName ?? "Ẩn danh")</p>
+                            <p class="card-text"><strong>Điểm:</strong> @review.Rating</p>
+                            <p class="card-text"><strong>Nhận xét:</strong> @review.Comment</p>
+                            <p class="card-text"><strong>Ngày đánh giá:</strong> @review.ReviewDate.ToString("dd/MM/yyyy")</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

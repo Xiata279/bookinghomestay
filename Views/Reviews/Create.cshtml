@@ -1,0 +1,64 @@
+@model BookingHomestay.ViewModels.ReviewViewModel
+
+@{
+    ViewData["Title"] = "Tạo đánh giá mới";
+}
+
+<div class="container py-5">
+    <h2>Tạo đánh giá mới</h2>
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="CustomerId" class="control-label"></label>
+            <select asp-for="CustomerId" class="form-control" asp-items="@(new SelectList(ViewData["Customers"] as List<BookingHomestay.Models.Customer>, "CustomerId", "FullName"))">
+                <option value="">Chọn khách hàng</option>
+            </select>
+            <span asp-validation-for="CustomerId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="RoomId" class="control-label"></label>
+            <select asp-for="RoomId" class="form-control" asp-items="@(new SelectList(ViewData["Rooms"] as List<BookingHomestay.Models.Room>, "RoomId", "RoomName"))">
+                <option value="">Chọn phòng</option>
+            </select>
+            <span asp-validation-for="RoomId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Rating" class="control-label"></label>
+            <input asp-for="Rating" class="form-control" type="number" min="1" max="5" required />
+            <span asp-validation-for="Rating" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Title" class="control-label"></label>
+            <input asp-for="Title" class="form-control" maxlength="255" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Comment" class="control-label"></label>
+            <textarea asp-for="Comment" class="form-control" rows="3" maxlength="1000"></textarea>
+            <span asp-validation-for="Comment" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Status" class="control-label"></label>
+            <select asp-for="Status" class="form-control">
+                <option value="Pending">Chờ duyệt</option>
+                <option value="Approved">Đã duyệt</option>
+                <option value="Rejected">Từ chối</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Tạo đánh giá</button>
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

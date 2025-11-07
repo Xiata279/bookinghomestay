@@ -1,0 +1,97 @@
+@model BookingHomestay.ViewModels.RoomViewModel
+
+@{
+    ViewData["Title"] = "Thêm phòng mới";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">🛏️ Thêm phòng mới</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row g-3">
+                    <!-- Khách sạn -->
+                    <div class="col-md-6">
+                        <label asp-for="HotelId" class="form-label">Khách sạn</label>
+                        <select asp-for="HotelId" class="form-select" asp-items="@(new SelectList(ViewData["Hotels"] as List<BookingHomestay.Models.Hotel>, "HotelId", "HotelName"))">
+                            <option value="">Chọn khách sạn</option>
+                        </select>
+                        <span asp-validation-for="HotelId" class="text-danger"></span>
+                    </div>
+
+                    <!-- Tên phòng -->
+                    <div class="col-md-6">
+                        <label asp-for="RoomName" class="form-label">Tên phòng</label>
+                        <input asp-for="RoomName" class="form-control" required />
+                        <span asp-validation-for="RoomName" class="text-danger"></span>
+                    </div>
+
+                    <!-- Số phòng -->
+                    <div class="col-md-6">
+                        <label asp-for="RoomNumber" class="form-label">Số phòng</label>
+                        <input asp-for="RoomNumber" class="form-control" required />
+                        <span asp-validation-for="RoomNumber" class="text-danger"></span>
+                    </div>
+
+                    <!-- Loại phòng -->
+                    <div class="col-md-6">
+                        <label asp-for="RoomType" class="form-label">Loại phòng</label>
+                        <input asp-for="RoomType" class="form-control" required />
+                        <span asp-validation-for="RoomType" class="text-danger"></span>
+                    </div>
+
+                    <!-- Giá phòng/đêm -->
+                    <div class="col-md-6">
+                        <label asp-for="Price" class="form-label">Giá/Đêm (VNĐ)</label>
+                        <input asp-for="Price" class="form-control" type="number" step="1000" required />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                    <!-- Trạng thái phòng -->
+                    <div class="col-md-6">
+                        <label asp-for="AvailabilityStatus" class="form-label">Trạng thái phòng</label>
+                        <select asp-for="AvailabilityStatus" class="form-select" required>
+                            <option value="Available">Có sẵn</option>
+                            <option value="Booked">Đã đặt</option>
+                        </select>
+                        <span asp-validation-for="AvailabilityStatus" class="text-danger"></span>
+                    </div>
+
+                    <!-- Địa điểm -->
+                    <div class="form-group">
+    <label asp-for="LocationId" class="control-label">Địa điểm</label>
+    <select asp-for="LocationId" class="form-control" asp-items="@(new SelectList(ViewData["Locations"] as List<BookingHomestay.Models.Location>, "LocationId", "City"))">
+        <option value="">Chọn địa điểm</option>
+    </select>
+    <span asp-validation-for="LocationId" class="text-danger"></span>
+</div>
+
+                    <!-- Hình ảnh -->
+                    <div class="col-md-6">
+                        <label for="file" class="form-label">Hình ảnh</label>
+                        <input type="file" name="file" class="form-control-file" />
+                    </div>
+
+                    <!-- Mô tả -->
+                    <div class="col-md-12">
+                        <label asp-for="Description" class="form-label">Mô tả</label>
+                        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-12 text-center mt-3">
+                        <button type="submit" class="btn btn-primary">Thêm phòng</button>
+                        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

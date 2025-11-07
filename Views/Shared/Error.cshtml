@@ -1,0 +1,16 @@
+﻿@model BookingHomestay.ViewModels.ErrorViewModel
+
+@{
+    ViewData["Title"] = "Lỗi";
+}
+
+<div class="container py-5 text-center">
+    <h1 class="text-danger">Đã xảy ra lỗi</h1>
+    <p class="lead">Rất tiếc, đã có lỗi xảy ra trong quá trình xử lý yêu cầu của bạn.</p>
+    @if (Model.ShowRequestId)
+    {
+        <p><strong>Mã yêu cầu:</strong> @Model.RequestId</p>
+    }
+    <p>Vui lòng thử lại hoặc liên hệ với chúng tôi qua trang <a asp-controller="Support" asp-action="Index">Hỗ trợ</a>.</p>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-3">Quay lại trang chủ</a>
+</div>

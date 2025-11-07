@@ -1,0 +1,8 @@
+C:\Users\luane\Desktop\ASP.NET\BookingHomestay\BookingHomestay\obj\Debug\net9.0\BookingHomestay.csproj.AssemblyReference.cache
+C:\Users\luane\Desktop\ASP.NET\BookingHomestay\BookingHomestay\obj\Debug\net9.0\BookingHomestay.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\luane\Desktop\ASP.NET\BookingHomestay\BookingHomestay\obj\Debug\net9.0\BookingHomestay.AssemblyInfoInputs.cache
+C:\Users\luane\Desktop\ASP.NET\BookingHomestay\BookingHomestay\obj\Debug\net9.0\BookingHomestay.AssemblyInfo.cs
+C:\Users\luane\Desktop\ASP.NET\BookingHomestay\BookingHomestay\obj\Debug\net9.0\BookingHomestay.csproj.CoreCompileInputs.cache
+C:\Users\luane\Desktop\ASP.NET\BookingHomestay\BookingHomestay\obj\Debug\net9.0\BookingHomestay.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\luane\Desktop\ASP.NET\BookingHomestay\BookingHomestay\obj\Debug\net9.0\BookingHomestay.RazorAssemblyInfo.cache
+C:\Users\luane\Desktop\ASP.NET\BookingHomestay\BookingHomestay\obj\Debug\net9.0\BookingHomestay.RazorAssemblyInfo.cs

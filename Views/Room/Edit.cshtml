@@ -1,0 +1,87 @@
+@model BookingHomestay.ViewModels.RoomViewModel
+
+@{
+    ViewData["Title"] = "Chỉnh sửa phòng";
+}
+
+<div class="container mt-5">
+    <h3 class="text-center">Chỉnh sửa phòng: @Model.RoomName</h3>
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="RoomId" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-row">
+            <div class="col-md-6 form-group">
+                <label asp-for="HotelId" class="control-label"></label>
+                <select asp-for="HotelId" class="form-control" asp-items="@(new SelectList(ViewData["Hotels"] as List<BookingHomestay.Models.Hotel>, "HotelId", "HotelName"))">
+                    <option value="">Chọn khách sạn</option>
+                </select>
+                <span asp-validation-for="HotelId" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 form-group">
+                <label asp-for="RoomName" class="control-label"></label>
+                <input asp-for="RoomName" class="form-control" placeholder="Nhập tên phòng" required />
+                <span asp-validation-for="RoomName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-6 form-group">
+                <label asp-for="RoomType" class="control-label"></label>
+                <input asp-for="RoomType" class="form-control" placeholder="Loại phòng" required />
+                <span asp-validation-for="RoomType" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 form-group">
+                <label asp-for="RoomNumber" class="control-label"></label>
+                <input asp-for="RoomNumber" class="form-control" placeholder="Số phòng" required />
+                <span asp-validation-for="RoomNumber" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-6 form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" type="number" class="form-control" placeholder="Giá phòng" required step="1000" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 form-group">
+                <label asp-for="AvailabilityStatus" class="control-label"></label>
+                <select asp-for="AvailabilityStatus" class="form-control">
+                    <option value="Available">Có sẵn</option>
+                    <option value="Booked">Đã đặt</option>
+                </select>
+                <span asp-validation-for="AvailabilityStatus" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-6 form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" placeholder="Địa điểm" required />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="file">Hình ảnh (nếu muốn thay đổi)</label>
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" alt="Current Image" style="max-width: 200px; margin-bottom: 10px;" class="img-fluid" />
+                }
+                <input type="file" name="file" class="form-control-file" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description" class="control-label"></label>
+            <textarea asp-for="Description" class="form-control" placeholder="Mô tả phòng" rows="3"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">Cập nhật phòng</button>
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

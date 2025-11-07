@@ -1,0 +1,30 @@
+@model BookingHomestay.Models.Feedback
+
+@{
+    ViewData["Title"] = "Xóa phản hồi";
+}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Xóa phản hồi</h2>
+
+    <div class="card">
+        <div class="card-header">
+            <h4>Xác nhận xóa phản hồi</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Khách hàng:</strong> @(Model.Customer != null ? Model.Customer.FullName : "Không xác định")</p>
+            <p><strong>Nội dung:</strong> @Model.Content</p>
+            <p><strong>Đánh giá:</strong> @Model.Rating</p>
+            <p><strong>Ngày gửi:</strong> @Model.FeedbackDate.ToString("dd/MM/yyyy HH:mm")</p>
+            <p><strong>Trạng thái:</strong> @(Model.Status ?? "Chưa xử lý")</p>
+            <p class="text-danger">Bạn có chắc chắn muốn xóa phản hồi này không?</p>
+        </div>
+        <div class="card-footer">
+            <form asp-action="DeleteConfirmed" method="post">
+                <input type="hidden" asp-for="FeedbackId" />
+                <button type="submit" class="btn btn-danger">Xóa</button>
+                <a asp-action="Index" class="btn btn-secondary">Hủy bỏ</a>
+            </form>
+        </div>
+    </div>
+</div>

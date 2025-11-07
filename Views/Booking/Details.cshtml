@@ -1,0 +1,39 @@
+@model BookingHomestay.Models.Booking
+
+@{
+    ViewData["Title"] = "Chi tiết đặt phòng";
+}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Chi tiết đặt phòng</h2>
+
+    @if (Model == null)
+    {
+        <p class="text-center text-danger">Đặt phòng không tồn tại.</p>
+        <a asp-action="Index" class="btn btn-primary">Quay lại danh sách</a>
+    }
+    else
+    {
+        <div class="card">
+            <div class="card-header">
+                <h4>Mã đặt phòng: @Model.BookingId</h4>
+            </div>
+            <div class="card-body">
+                <p><strong>Phòng:</strong> @(Model.Room != null ? Model.Room.RoomName : "Không xác định")</p>
+                <p><strong>Khách sạn:</strong> @(Model.Room != null && Model.Room.Hotel != null ? Model.Room.Hotel.HotelName : "Không xác định")</p>
+                <p><strong>Khách hàng:</strong> @(Model.Customer != null ? Model.Customer.FullName : "Không xác định")</p>
+                <p><strong>Email khách hàng:</strong> @(Model.Customer != null ? Model.Customer.Email : "Không xác định")</p>
+                <p><strong>Ngày nhận phòng:</strong> @Model.CheckInDate.ToString("dd/MM/yyyy HH:mm")</p>
+                <p><strong>Ngày trả phòng:</strong> @Model.CheckOutDate.ToString("dd/MM/yyyy HH:mm")</p>
+                <p><strong>Tổng giá:</strong> @Model.TotalPrice.ToString("N0") VNĐ</p>
+                <p><strong>Trạng thái:</strong> @(Model.Status ?? "Không xác định")</p>
+                <p><strong>Thanh toán:</strong> @(Model.PaymentStatus ?? "Không xác định")</p>
+                <p><strong>Khuyến mãi:</strong> @(Model.Promotion != null ? Model.Promotion.PromotionCode : "Không có")</p>
+            </div>
+            <div class="card-footer">
+                <a asp-action="Index" class="btn btn-primary">Quay lại danh sách</a>
+                <a asp-action="Cancel" asp-route-id="@Model.BookingId" class="btn btn-danger">Hủy đặt phòng</a>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,591 @@
+/* Phần 1: Định nghĩa chung - Font Poppins và reset style */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Định nghĩa reset style */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    text-decoration: none;
+    list-style: none;
+}
+
+/* Phần 2: Định nghĩa body và html */
+body {
+    margin-bottom: 60px;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7fa;
+}
+
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/* Phần 3: Định nghĩa button và form focus */
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #007bff;
+}
+
+/* Phần 4: Định nghĩa form placeholder */
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+
+/* Phần 5: Định nghĩa navbar và nav-link */
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.navbar {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+  color: #2c3e50;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #007bff;
+}
+/* Phần 6: Định nghĩa dropdown menu */
+.dropdown-menu {
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    color: #2c3e50;
+    transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+
+/* Phần 7: Định nghĩa button primary */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  transition: background-color 0.3s, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Phần 8: Định nghĩa card hover */
+.card img:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Phần 9: Định nghĩa hero section */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: 100px 0;
+    position: relative;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-section p {
+    font-size: 1.25rem;
+    margin-top: 20px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-section .btn {
+    font-size: 1.1rem;
+    padding: 15px 30px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.hero-section .btn:hover {
+    background-color: #FF6F61;
+    color: white;
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Phần 10: Định nghĩa service card */
+.service-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.service-card img {
+    max-height: 250px;
+    object-fit: cover;
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.service-card h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-top: 15px;
+}
+
+.service-card p {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+/* Phần 11: Định nghĩa reviews section */
+.reviews-section {
+    padding: 60px 0;
+    background-color: #f0f0f0;
+}
+
+.reviews-section .review-card {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 15px 0;
+    transition: transform 0.3s ease;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.reviews-section .review-card:hover {
+    transform: scale(1.05);
+}
+
+.reviews-section .review-card p {
+    font-style: italic;
+    color: #555;
+}
+
+/* Phần 12: Định nghĩa search section */
+.search-section {
+    background-color: #f8f8f8;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.search-section input,
+.search-section button {
+    padding: 12px;
+    margin: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+    border: 1px solid #ddd;
+}
+
+.search-section button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.search-section button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Phần 13: Định nghĩa datepicker */
+.ui-datepicker {
+    font-family: 'Poppins', sans-serif;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ui-datepicker-header {
+    background-color: #FF6F61;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+}
+
+.ui-datepicker-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.ui-datepicker-prev, .ui-datepicker-next {
+    color: #FF6F61;
+}
+
+.ui-datepicker td a {
+    color: #333;
+    padding: 5px;
+}
+
+.ui-datepicker td a.ui-state-hover {
+    background-color: #FF6F61;
+    color: white;
+    border-radius: 50%;
+}
+
+.ui-datepicker .ui-datepicker-title {
+    font-weight: bold;
+}
+
+/* Phần 14: Định nghĩa featured rooms */
+.featured-rooms .card {
+    margin-bottom: 20px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.featured-rooms .card:hover {
+    transform: translateY(-5px);
+}
+
+.featured-rooms .card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Phần 15: Định nghĩa popular destinations */
+.popular-destinations {
+    background-color: #fff;
+    padding: 60px 0;
+}
+
+.popular-destinations h2 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #2c3e50;
+}
+
+.destination-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.destination-cards .card {
+    width: 30%;
+    text-align: center;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.destination-cards .card:hover {
+    transform: translateY(-5px);
+}
+
+.destination-cards .card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.destination-cards .card h5 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-top: 15px;
+}
+.card {
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+/* Phần 16: Định nghĩa activity cards */
+.activity-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.activity-cards .card {
+    width: 30%;
+    text-align: center;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.activity-cards .card:hover {
+    transform: translateY(-5px);
+}
+
+.activity-cards .card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.activity-cards .card h5 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-top: 15px;
+}
+
+/* Phần 17: Định nghĩa payment form */
+.payment-form .card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.payment-form .card:hover {
+    transform: translateY(-5px);
+}
+
+.payment-form .form-control {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.payment-form .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.payment-form .btn-success:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Phần 18: Định nghĩa review form */
+.review-form .form-group {
+    margin-bottom: 20px;
+}
+
+.review-form .form-control {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.review-form .btn-primary {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.review-form .btn-primary:hover {
+    transform: scale(1.05);
+}
+
+/* Phần 19: Định nghĩa carousel */
+.carousel-item img {
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+}
+
+/* Phần 20: Định nghĩa map */
+#map {
+    height: 400px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Phần 21: Định nghĩa spinner */
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Phần 22: Định nghĩa footer */
+footer {
+  position: relative;
+  width: 100%;
+  line-height: 60px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #e5e5e5;
+}
+
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer a {
+  color: #ffc107;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer .social-links a {
+  margin-right: 20px;
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer .social-links a:hover {
+  color: #007bff;
+}
+
+/* Phần 23: Media queries chung */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 60px 0;
+    }
+
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    .hero-section .btn {
+        font-size: 1rem;
+        padding: 12px 25px;
+    }
+
+    .search-section input,
+    .search-section button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .service-card {
+        padding: 15px;
+    }
+
+    .reviews-section .review-card {
+        margin: 15px 0;
+    }
+
+    .destination-cards,
+    .activity-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .destination-cards .card,
+    .activity-cards .card {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    footer .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    footer .social-links {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero-section p {
+        font-size: 0.9rem;
+    }
+
+    .hero-section .btn {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+    }
+
+    .service-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .service-card p {
+        font-size: 0.9rem;
+    }
+
+    .reviews-section .review-card p {
+        font-size: 0.9rem;
+    }
+}

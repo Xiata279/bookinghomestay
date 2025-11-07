@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/hero-background.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 5rem 0;
+}
+
+.hero-section h1 {
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Search Section */
+.search-section {
+    background: #fff;
+}
+
+.search-section form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.search-section input, .search-section button {
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.search-section button {
+    background: #007bff;
+    border: none;
+    transition: background 0.3s ease;
+}
+
+.search-section button:hover {
+    background: #0056b3;
+}
+
+/* Phòng Nổi Bật */
+.featured-rooms .room-card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.featured-rooms .room-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.featured-rooms .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Dịch Vụ Nổi Bật */
+.services-section .service-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.services-section .service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.services-section img {
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.services-section img:hover {
+    transform: scale(1.05);
+}
+
+/* Phần Review */
+.reviews-section .review-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.reviews-section .review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.reviews-section .review-text {
+    font-style: italic;
+    color: #555;
+}
+
+.reviews-section .review-author {
+    color: #007bff;
+    font-weight: 600;
+    margin-top: 10px;
+    display: block;
+}
+
+/* Footer */
+footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 2rem 0;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 400px;
+    }
+
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+    }
+
+    .search-section form {
+        flex-direction: column;
+    }
+
+    .search-section input, .search-section button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .room-card, .service-card, .review-card {
+        max-width: 100%;
+    }
+}

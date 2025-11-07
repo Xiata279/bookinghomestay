@@ -1,0 +1,82 @@
+/* _content/BookingHomestay/Views/Shared/_Layout.cshtml.rz.scp.css */
+/* Custom styles for BookingHomestay */
+a.navbar-brand[b-2wohx19vhp] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.navbar[b-2wohx19vhp] {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link[b-2wohx19vhp] {
+  color: #2c3e50;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-link:hover[b-2wohx19vhp] {
+  color: #007bff;
+}
+
+.btn-primary[b-2wohx19vhp] {
+  background-color: #007bff;
+  border-color: #007bff;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover[b-2wohx19vhp] {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+footer[b-2wohx19vhp] {
+  position: relative;
+  width: 100%;
+  line-height: 60px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #e5e5e5;
+}
+
+.card[b-2wohx19vhp] {
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.card:hover[b-2wohx19vhp] {
+  transform: translateY(-5px);
+}
+
+/* Style cho dropdown admin */
+.dropdown-menu[b-2wohx19vhp] {
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item[b-2wohx19vhp] {
+  color: #2c3e50;
+  transition: background-color 0.3s;
+}
+
+.dropdown-item:hover[b-2wohx19vhp] {
+  background-color: #f8f9fa;
+  color: #007bff;
+}
+
+@media (max-width: 768px) {
+  .navbar-brand[b-2wohx19vhp] {
+      font-size: 1.2rem;
+  }
+  .nav-link[b-2wohx19vhp] {
+      font-size: 0.9rem;
+  }
+  footer[b-2wohx19vhp] {
+      line-height: 40px;
+  }
+}

@@ -1,0 +1,108 @@
+﻿@model BookingHomestay.Models.Booking
+@{
+    ViewData["Title"] = "Tạo đặt phòng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Tạo đặt phòng mới</h2>
+
+    <form asp-action="Create" method="post" id="createBookingForm">
+        <div class="form-group mb-3">
+            <label asp-for="RoomId">Chọn phòng</label>
+            <select asp-for="RoomId" class="form-control" asp-items="@(ViewData["AvailableRooms"] as SelectList)" required></select>
+            <span asp-validation-for="RoomId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="CheckInDate">Ngày nhận phòng</label>
+            <input asp-for="CheckInDate" type="text" class="form-control" id="checkInDate" required />
+            <span asp-validation-for="CheckInDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="CheckOutDate">Ngày trả phòng</label>
+            <input asp-for="CheckOutDate" type="text" class="form-control" id="checkOutDate" required />
+            <span asp-validation-for="CheckOutDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Status">Trạng thái</label>
+            <select asp-for="Status" class="form-control">
+                <option value="Pending">Đang chờ</option>
+                <option value="Confirmed">Đã xác nhận</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Tạo đặt phòng</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.datepicker.setDefaults({
+                dateFormat: "dd-mm-yy",
+                monthNames: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
+                monthNamesShort: ["Th1", "Th2", "Th3", "Th4", "Th5", "Th6", "Th7", "Th8", "Th9", "Th10", "Th11", "Th12"],
+                dayNames: ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"],
+                dayNamesShort: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+                dayNamesMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+                firstDay: 1
+            });
+
+            $("#checkInDate").datepicker({
+                minDate: 0,
+                numberOfMonths: 2,
+                showButtonPanel: true,
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                onSelect: function (dateText, inst) {
+                    var date = $(this).datepicker('getDate');
+                    date.setDate(date.getDate() + 1);
+                    $('#checkOutDate').datepicker('option', 'minDate', date);
+                }
+            });
+
+            $("#checkOutDate").datepicker({
+                minDate: 1,
+                numberOfMonths: 2,
+                showButtonPanel: true,
+                showOtherMonths: true,
+                selectOtherMonths: true
+            });
+
+            $("#createBookingForm").validate({
+                rules: {
+                    RoomId: {
+                        required: true
+                    },
+                    CheckInDate: {
+                        required: true
+                    },
+                    CheckOutDate: {
+                        required: true
+                    }
+                },
+                messages: {
+                    RoomId: {
+                        required: "Vui lòng chọn phòng"
+                    },
+                    CheckInDate: {
+                        required: "Vui lòng chọn ngày nhận phòng"
+                    },
+                    CheckOutDate: {
+                        required: "Vui lòng chọn ngày trả phòng"
+                    }
+                },
+                errorElement: "div",
+                errorClass: "text-danger"
+            });
+        });
+    </script>
+}

@@ -1,0 +1,121 @@
+@model IEnumerable<BookingHomestay.Models.Booking>
+
+@{
+    ViewData["Title"] = "Quản lý đặt phòng";
+}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Quản lý đặt phòng</h2>
+
+    <!-- Form tìm kiếm -->
+    <form asp-action="Index" method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Tìm kiếm theo tên khách hàng, phòng hoặc khách sạn" value="@ViewData["Search"]" />
+            <button type="submit" class="btn btn-primary">Tìm</button>
+        </div>
+    </form>
+
+    <!-- Hiển thị thông báo -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success mt-3">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger mt-3">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-primary">
+            <tr>
+                <th>Phòng</th>
+                <th>Khách sạn</th>
+                <th>Khách hàng</th>
+                <th>Ngày nhận phòng</th>
+                <th>Ngày trả phòng</th>
+                <th>Tổng giá</th>
+                <th>Trạng thái</th>
+                <th>Thanh toán</th>
+                <th>Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Any())
+            {
+                @foreach (var booking in Model)
+                {
+                    <tr>
+                        <td>@booking.Room.RoomName</td>
+                        <td>@booking.Room.Hotel?.HotelName</td>
+                        <td>@booking.Customer.FullName</td>
+                        <td>@booking.CheckInDate.ToString("dd/MM/yyyy")</td>
+                        <td>@booking.CheckOutDate.ToString("dd/MM/yyyy")</td>
+                        <td>@booking.TotalPrice.ToString("N0") đồng</td>
+                        <td>@booking.Status</td>
+                        <td>@booking.PaymentStatus</td>
+                        <td>
+                            <a asp-controller="Booking" asp-action="Details" asp-route-id="@booking.BookingId" class="btn btn-info btn-sm">Chi tiết</a>
+                            @if (booking.Status != "Cancelled")
+                            {
+                                <form asp-controller="Booking" asp-action="Cancel" asp-route-id="@booking.BookingId" method="post" class="d-inline" onsubmit="return confirm('Bạn có chắc muốn hủy đặt phòng này?');">
+                                    <button type="submit" class="btn btn-danger btn-sm">Hủy</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9" class="text-center">Không có đặt phòng nào.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Phân trang -->
+    @if ((int)ViewData["TotalPages"] > 1)
+    {
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                @if ((int)ViewData["CurrentPage"] > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-action="Index" asp-route-page="@((int)ViewData["CurrentPage"] - 1)" asp-route-search="@ViewData["Search"]">Previous</a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= (int)ViewData["TotalPages"]; i++)
+                {
+                    <li class="page-item @(i == (int)ViewData["CurrentPage"] ? "active" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-search="@ViewData["Search"]">@i</a>
+                    </li>
+                }
+
+                @if ((int)ViewData["CurrentPage"] < (int)ViewData["TotalPages"])
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-action="Index" asp-route-page="@((int)ViewData["CurrentPage"] + 1)" asp-route-search="@ViewData["Search"]">Next</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('.alert').fadeOut('slow');
+            }, 3000);
+        });
+    </script>
+}

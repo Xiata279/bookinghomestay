@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BookingHomestay.ViewModels.RoomViewModel>
+
+@{
+    ViewData["Title"] = "So sánh phòng";
+}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">So sánh phòng</h2>
+
+    <div class="row">
+        @if (Model.Any())
+        {
+            @foreach (var room in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="@(room.ImageUrl ?? "/images/default-room.jpg")" class="card-img-top" alt="@room.RoomName" style="height: 200px; object-fit: cover;" />
+                        <div class="card-body">
+                            <h5 class="card-title">@room.RoomName</h5>
+                            <p class="card-text">
+                                <strong>Khách sạn:</strong> @room.Hotel?.HotelName<br />
+                                <strong>Loại phòng:</strong> @room.RoomType<br />
+                                <strong>Số phòng:</strong> @room.RoomNumber<br />
+                                <strong>Giá/Đêm:</strong> @room.Price.ToString("N0") đồng<br />
+                                <strong>Trạng thái:</strong> @(room.AvailabilityStatus == "Available" ? "Có sẵn" : "Đã đặt")<br />
+                                <strong>Địa điểm:</strong> @room.Location<br />
+                                <strong>Mô tả:</strong> @(room.Description ?? "Không có mô tả.")
+                            </p>
+                            <a asp-controller="Booking" asp-action="BookRoom" asp-route-roomId="@room.RoomId" class="btn btn-primary">Đặt phòng</a>
+                            <a asp-action="Details" asp-route-id="@room.RoomId" class="btn btn-info">Chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-center">Không có phòng nào để so sánh.</p>
+        }
+    </div>
+
+    <div class="text-center">
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </div>
+</div>

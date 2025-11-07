@@ -1,0 +1,157 @@
+﻿@model BookingHomestay.ViewModels.HomeViewModel
+
+@{
+    ViewData["Title"] = "Trang Chủ";
+}
+
+<!-- Hero Section -->
+<section class="hero-section text-white py-5">
+    <div class="container text-center">
+        <h1 class="display-4 animate__animated animate__fadeIn">Khám Phá Homestay Đẳng Cấp Cùng BookingHomestay</h1>
+        <p class="lead animate__animated animate__fadeIn animate__delay-1s">Đặt phòng dễ dàng - Trải nghiệm nghỉ dưỡng tuyệt vời tại những homestay đẹp nhất.</p>
+        <a href="@Url.Action("Search", "Room")" class="btn btn-warning btn-lg mt-3 animate__animated animate__fadeIn animate__delay-2s">Tìm phòng ngay</a>
+        <a href="#search-section" class="btn btn-outline-warning btn-lg mt-3">Xem thêm</a>
+        </div>
+    </div>
+</section>
+
+<!-- Phòng Nổi Bật (Carousel) -->
+<section id="featured-rooms" class="featured-rooms py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Phòng Nổi Bật</h2>
+        <div id="roomCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                @for (int i = 0; i < Model.AvailableRooms.Count; i++)
+                {
+                    <li data-target="#roomCarousel" data-slide-to="@i" class="@(i == 0 ? "active" : "")"></li>
+                }
+            </ol>
+            <div class="carousel-inner">
+                @for (int i = 0; i < Model.AvailableRooms.Count; i++)
+                {
+                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                        <div class="card room-card mx-auto" style="max-width: 350px;">
+                            <img src="@(Model.AvailableRooms[i].ImageUrl ?? "/images/default-room.jpg")" class="card-img-top" alt="@Model.AvailableRooms[i].RoomName" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">@Model.AvailableRooms[i].RoomName</h5>
+                                <p class="card-text">@(Model.AvailableRooms[i].Description ?? "Phòng view biển, nội thất hiện đại, wifi miễn phí.")</p>
+                                <p class="card-text">Giá từ: @Model.AvailableRooms[i].Price.ToString("N0") VNĐ/đêm</p>
+                                <a href="@Url.Action("Details", "Room", new { id = Model.AvailableRooms[i].RoomId })" class="btn btn-primary">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <a class="carousel-control-prev" href="#roomCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </a>
+            <a class="carousel-control-next" href="#roomCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Dịch Vụ Nổi Bật -->
+<section class="services-section py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Dịch vụ nổi bật</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="service-card text-center">
+                    <img src="/images/luxury-room.jpg" class="img-fluid rounded" alt="Phòng Nghỉ Sang Trọng" loading="lazy">
+                    <h3 class="mt-3"><i class="fas fa-bed"></i> Phòng Nghỉ Sang Trọng</h3>
+                    <p>Thư giãn trong không gian sang trọng với giường êm ái và tiện nghi cao cấp.</p>
+                    <a href="@Url.Action("Book", "Room", new { serviceId = 1 })" class="btn btn-primary mr-2">Đặt ngay</a>
+                    <a href="@Url.Action("ServiceDetails", "Service", new { id = 1 })" class="btn btn-outline-primary">Xem chi tiết</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card text-center">
+                    <img src="/images/amenities.jpg" class="img-fluid rounded" alt="Tiện Ích Đầy Đủ" loading="lazy">
+                    <h3 class="mt-3"><i class="fas fa-wifi"></i> Tiện Ích Đầy Đủ</h3>
+                    <p>Tận hưởng Wi-Fi tốc độ cao, hồ bơi vô cực và dịch vụ 24/7.</p>
+                    <a href="@Url.Action("Book", "Room", new { serviceId = 2 })" class="btn btn-primary mr-2">Đặt ngay</a>
+                    <a href="@Url.Action("ServiceDetails", "Service", new { id = 2 })" class="btn btn-outline-primary">Xem chi tiết</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="service-card text-center">
+                    <img src="/images/booking.jpg" class="img-fluid rounded" alt="Đặt Phòng Linh Hoạt" loading="lazy">
+                    <h3 class="mt-3"><i class="fas fa-calendar-check"></i> Đặt Phòng Linh Hoạt</h3>
+                    <p>Thay đổi lịch trình dễ dàng, hỗ trợ đặt phòng nhanh chóng.</p>
+                    <a href="@Url.Action("Book", "Room", new { serviceId = 3 })" class="btn btn-primary mr-2">Đặt ngay</a>
+                    <a href="@Url.Action("ServiceDetails", "Service", new { id = 3 })" class="btn btn-outline-primary">Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Phần Review của khách hàng -->
+<section class="reviews-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Khách hàng nói gì về chúng tôi</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="review-card text-center">
+                    <img src="/images/avatar1.jpg" class="rounded-circle mb-3" alt="Nguyễn Văn Đại" style="width: 80px; height: 80px;">
+                    <div class="rating mb-2">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                    </div>
+                    <p class="review-text">"Phòng ở tuyệt vời, dịch vụ tốt, tôi sẽ quay lại vào lần sau!"</p>
+                    <strong class="review-author">- Nguyễn Văn Đại</strong>
+                    <p class="review-date"><small>Đánh giá vào 01/11/2023</small></p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="review-card text-center">
+                    <img src="/images/avatar2.jpg" class="rounded-circle mb-3" alt="Bùi Đức Trí" style="width: 80px; height: 80px;">
+                    <div class="rating mb-2">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                    </div>
+                    <p class="review-text">"Rất hài lòng với chất lượng phòng và không gian yên tĩnh."</p>
+                    <strong class="review-author">- Bùi Đức Trí</strong>
+                    <p class="review-date"><small>Đánh giá vào 02/11/2023</small></p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="review-card text-center">
+                    <img src="/images/avatar3.jpg" class="rounded-circle mb-3" alt="Trần Minh Công" style="width: 80px; height: 80px;">
+                    <div class="rating mb-2">
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                        <i class="fas fa-star text-warning"></i>
+                    </div>
+                    <p class="review-text">"Dịch vụ chuyên nghiệp, tiện nghi đầy đủ. Chắc chắn tôi sẽ trở lại."</p>
+                    <strong class="review-author">- Trần Minh Công</strong>
+                    <p class="review-date"><small>Đánh giá vào 03/11/2023</small></p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="@Url.Action("Reviews", "Home")" class="btn btn-outline-primary">Xem thêm đánh giá</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-4 bg-dark text-white text-center">
+    <p>© 2023 BookingHomestay. All rights reserved. | <a href="#" class="text-white">Chính sách bảo mật</a> | <a href="#" class="text-white">Liên hệ</a></p>
+</footer>
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+}

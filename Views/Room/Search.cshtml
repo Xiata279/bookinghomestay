@@ -1,0 +1,76 @@
+@model BookingHomestay.ViewModels.RoomSearchViewModel
+
+@{
+    ViewData["Title"] = "Tìm kiếm phòng";
+}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Tìm kiếm phòng</h2>
+
+    <!-- Form tìm kiếm -->
+    <form asp-action="Search" method="get" class="mb-4">
+        <div class="row">
+            <div class="col-md-3">
+                <input type="text" name="Location" class="form-control" placeholder="Tìm kiếm theo địa điểm" value="@Model.Location" />
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="RoomType" class="form-control" placeholder="Tìm kiếm theo loại phòng" value="@Model.RoomType" />
+            </div>
+            <div class="col-md-3">
+                <input type="number" name="MinPrice" class="form-control" placeholder="Giá tối thiểu" value="@Model.MinPrice" />
+            </div>
+            <div class="col-md-3">
+                <input type="number" name="MaxPrice" class="form-control" placeholder="Giá tối đa" value="@Model.MaxPrice" />
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <select name="SortOrder" class="form-control">
+                    <option value="">Sắp xếp</option>
+                    <option value="price_asc" selected="@(Model.SortOrder == "price_asc")">Giá tăng dần</option>
+                    <option value="price_desc" selected="@(Model.SortOrder == "price_desc")">Giá giảm dần</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Hiển thị kết quả -->
+    <div class="row">
+        @foreach (var room in Model.Rooms)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="@(room.ImageUrl ?? "/images/default-room.jpg")" class="card-img-top" alt="@room.RoomName" />
+                    <div class="card-body">
+                        <h5 class="card-title">@room.RoomName</h5>
+                        <p class="card-text"><strong>Khách sạn:</strong> @room.Hotel.HotelName</p>
+                        <p class="card-text"><strong>Địa điểm:</strong> @(room.Location != null ? room.Location.City : "Không xác định")</p>
+                        <p class="card-text"><strong>Giá:</strong> @room.Price.ToString("N0") VNĐ</p>
+                        <p class="card-text"><strong>Trạng thái:</strong> @room.AvailabilityStatus</p>
+                        <a asp-action="Details" asp-route-id="@room.RoomId" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Hiển thị thông báo nếu không có kết quả -->
+    @if (!Model.Rooms.Any())
+    {
+        <p class="text-center">Không tìm thấy phòng nào phù hợp với tiêu chí của bạn.</p>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('.alert').fadeOut('slow');
+            }, 3000);
+        });
+    </script>
+}

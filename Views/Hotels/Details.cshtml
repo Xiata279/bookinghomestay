@@ -1,0 +1,111 @@
+@model BookingHomestay.Models.Hotel
+
+@{
+    ViewData["Title"] = "Chi tiết khách sạn";
+}
+
+<div class="container py-5">
+    <h2>Chi tiết khách sạn: @Model.HotelName</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" class="img-fluid rounded" alt="@Model.HotelName" style="max-height: 400px; object-fit: cover;" />
+            }
+            else
+            {
+                <img src="/images/default-hotel.jpg" class="img-fluid rounded" alt="Default Hotel" style="max-height: 400px; object-fit: cover;" />
+            }
+
+            <!-- Hiển thị gallery nếu có -->
+            @if (Model.Gallery.Any())
+            {
+                <div class="mt-3">
+                    <h5>Hình ảnh khác</h5>
+                    <div class="row">
+                        @foreach (var image in Model.Gallery)
+                        {
+                            <div class="col-md-4 mb-2">
+                                <img src="@image.ImageUrl" class="img-fluid rounded" alt="@image.Description" style="max-height: 150px; object-fit: cover;" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-6">
+            <dl class="row">
+                <dt class="col-sm-4">Tên khách sạn</dt>
+                <dd class="col-sm-8">@Model.HotelName</dd>
+
+                <dt class="col-sm-4">Địa điểm</dt>
+                <dd class="col-sm-8">@Model.Location</dd>
+
+                <dt class="col-sm-4">Mô tả</dt>
+                <dd class="col-sm-8">@(Model.Description ?? "Không có mô tả.")</dd>
+
+                <dt class="col-sm-4">Ngày tạo</dt>
+                <dd class="col-sm-8">@Model.CreatedAt.ToString("dd/MM/yyyy")</dd>
+            </dl>
+        </div>
+    </div>
+
+    <!-- Danh sách phòng -->
+    @if (Model.Rooms.Any())
+    {
+        <h3 class="mt-5">Danh sách phòng</h3>
+        <div class="row">
+            @foreach (var room in Model.Rooms)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="@(room.ImageUrl ?? "/images/default-room.jpg")" class="card-img-top" alt="@room.RoomName" style="height: 200px; object-fit: cover;" />
+                        <div class="card-body">
+                            <h5 class="card-title">@room.RoomName</h5>
+                            <p class="card-text">
+                                <strong>Loại phòng:</strong> @room.RoomType<br />
+                                <strong>Số phòng:</strong> @room.RoomNumber<br />
+                                <strong>Giá/Đêm:</strong> @room.Price.ToString("N0") đồng<br />
+                                <strong>Trạng thái:</strong> @(room.AvailabilityStatus == "Available" ? "Có sẵn" : "Đã đặt")
+                            </p>
+                            <a asp-controller="Room" asp-action="Details" asp-route-id="@room.RoomId" class="btn btn-info">Chi tiết</a>
+                            <a asp-controller="Booking" asp-action="BookRoom" asp-route-roomId="@room.RoomId" class="btn btn-primary">Đặt phòng</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <!-- Danh sách nhân viên -->
+    @if (Model.Staffs.Any())
+    {
+        <h3 class="mt-5">Danh sách nhân viên</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Họ tên</th>
+                    <th>Vai trò</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var staff in Model.Staffs)
+                {
+                    <tr>
+                        <td>@staff.FullName</td>
+                        <td>@staff.Role</td>
+                        <td>@staff.Email</td>
+                        <td>@staff.Phone</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <div class="mt-3 text-center">
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </div>
+</div>

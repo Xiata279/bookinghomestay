@@ -1,0 +1,45 @@
+@model IEnumerable<BookingHomestay.Models.Hotel>
+
+@{
+    ViewData["Title"] = "Giới thiệu";
+}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Giới thiệu về BookingHomestay</h2>
+
+    <div class="row mb-5">
+        <div class="col-md-12 text-center">
+            <p class="lead">
+                BookingHomestay là nền tảng đặt phòng homestay hàng đầu tại Việt Nam, mang đến cho bạn những trải nghiệm nghỉ dưỡng tuyệt vời với giá cả hợp lý.
+                Chúng tôi kết nối bạn với hàng trăm homestay trên khắp cả nước, từ những ngôi nhà nhỏ xinh ở Đà Lạt đến các biệt thự ven biển tại Nha Trang.
+            </p>
+        </div>
+    </div>
+
+    <h3 class="text-center mb-4">Các khách sạn nổi bật</h3>
+    <div class="row">
+        @if (Model.Any())
+        {
+            @foreach (var hotel in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="@(hotel.ImageUrl ?? "/images/default-hotel.jpg")" class="card-img-top" alt="@hotel.HotelName" style="height: 200px; object-fit: cover;" />
+                        <div class="card-body">
+                            <h5 class="card-title">@hotel.HotelName</h5>
+                            <p class="card-text">
+                                <strong>Địa điểm:</strong> @hotel.Location<br />
+                                <strong>Mô tả:</strong> @(hotel.Description ?? "Không có mô tả.")
+                            </p>
+                            <a asp-controller="Hotels" asp-action="Details" asp-route-id="@hotel.HotelId" class="btn btn-primary">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-center">Không có khách sạn nào để hiển thị.</p>
+        }
+    </div>
+</div>

@@ -1,0 +1,43 @@
+@model BookingHomestay.Models.Customer
+
+@{
+    ViewData["Title"] = "Chỉnh sửa khách hàng";
+}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Chỉnh sửa khách hàng: @Model.FullName</h2>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="CustomerId" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row g-3">
+            <div class="col-md-6 form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" placeholder="Nhập họ tên" required />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" placeholder="Nhập email" required />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" placeholder="Nhập số điện thoại" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="col-md-6 form-group">
+                <label asp-for="CreatedAt" class="control-label"></label>
+                <input asp-for="CreatedAt" class="form-control" readonly />
+            </div>
+            <div class="col-md-12 text-center mt-3">
+                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

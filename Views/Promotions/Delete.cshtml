@@ -1,0 +1,38 @@
+@model BookingHomestay.Models.Promotion
+
+@{
+    ViewData["Title"] = "Xác nhận xóa khuyến mãi";
+}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Xác nhận xóa khuyến mãi</h2>
+
+    <div class="alert alert-warning">
+        Bạn có chắc chắn muốn xóa khuyến mãi <strong>@Model.PromotionCode</strong> không?
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-3">Mã khuyến mãi</dt>
+        <dd class="col-sm-9">@Model.PromotionCode</dd>
+
+        <dt class="col-sm-3">Phần trăm giảm</dt>
+        <dd class="col-sm-9">@Model.DiscountPercent%</dd>
+
+        <dt class="col-sm-3">Ngày bắt đầu</dt>
+        <dd class="col-sm-9">@Model.StartDate.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-3">Ngày kết thúc</dt>
+        <dd class="col-sm-9">@Model.EndDate.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-3">Ngày tạo</dt>
+        <dd class="col-sm-9">@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="PromotionId" />
+        <div class="text-center">
+            <button type="submit" class="btn btn-danger">Xóa</button>
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        </div>
+    </form>
+</div>

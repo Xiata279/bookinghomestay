@@ -1,0 +1,41 @@
+@model BookingHomestay.ViewModels.RoomViewModel
+
+@{
+    ViewData["Title"] = "Xóa phòng";
+}
+
+<div class="container mt-5">
+    <h3 class="text-center">Xác nhận xóa phòng</h3>
+    <div class="alert alert-warning">
+        Bạn có chắc chắn muốn xóa phòng <strong>@Model.RoomName</strong> không?
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-3">Tên phòng</dt>
+        <dd class="col-sm-9">@Model.RoomName</dd>
+
+        <dt class="col-sm-3">Khách sạn</dt>
+        <dd class="col-sm-9">@Model.Hotel?.HotelName</dd>
+
+        <dt class="col-sm-3">Loại phòng</dt>
+        <dd class="col-sm-9">@Model.RoomType</dd>
+
+        <dt class="col-sm-3">Số phòng</dt>
+        <dd class="col-sm-9">@Model.RoomNumber</dd>
+
+        <dt class="col-sm-3">Giá/Đêm</dt>
+        <dd class="col-sm-9">@Model.Price.ToString("N0") đồng</dd>
+
+        <dt class="col-sm-3">Trạng thái</dt>
+        <dd class="col-sm-9">@Model.AvailabilityStatus</dd>
+
+        <dt class="col-sm-3">Địa điểm</dt>
+        <dd class="col-sm-9">@Model.Location</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="RoomId" />
+        <button type="submit" class="btn btn-danger">Xóa</button>
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>

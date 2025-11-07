@@ -1,0 +1,170 @@
+﻿@model List<BookingHomestay.Models.Booking>
+
+@{
+    ViewData["Title"] = "Danh sách đặt phòng";
+}
+
+<!-- Phần Hero Section -->
+<section class="hero-section bg-gradient-primary text-white py-5">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold">Danh sách đặt phòng</h1>
+        <p class="lead">Quản lý và theo dõi các đặt phòng của bạn một cách dễ dàng</p>
+    </div>
+</section>
+
+<!-- Phần Tìm kiếm -->
+<section class="search-section py-4 bg-light">
+    <div class="container">
+        <form asp-action="Index" method="get" class="row g-3 justify-content-center">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    <input type="text" name="search" class="form-control" placeholder="Tìm theo tên khách hàng, phòng hoặc khách sạn" value="@ViewData["Search"]" />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Phần Danh sách đặt phòng -->
+<section class="bookings-section py-5">
+    <div class="container">
+        <!-- Hiển thị thông báo -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show mt-3 animate__animated animate__fadeIn" role="alert">
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show mt-3 animate__animated animate__fadeIn" role="alert">
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <div class="row gy-4">
+            @if (Model.Any())
+            {
+                foreach (var booking in Model)
+                {
+                    <div class="col-md-4 col-lg-3">
+                        <div class="card shadow-sm h-100 border-0 booking-card">
+                            <img src="@(booking.Room != null && booking.Room.ImageUrl != null ? booking.Room.ImageUrl : "https://via.placeholder.com/300x200")" class="card-img-top" alt="Phòng" />
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Mã đặt phòng: @booking.BookingId</h5>
+                                <p class="card-text"><strong>Phòng:</strong> @(booking.Room != null ? booking.Room.RoomName : "Không xác định")</p>
+                                <p class="card-text"><strong>Khách hàng:</strong> @(booking.Customer != null ? booking.Customer.FullName : "Không xác định")</p>
+                                <p class="card-text"><strong>Nhận phòng:</strong> @booking.CheckInDate.ToString("dd/MM/yyyy HH:mm")</p>
+                                <p class="card-text"><strong>Trả phòng:</strong> @booking.CheckOutDate.ToString("dd/MM/yyyy HH:mm")</p>
+                                <p class="card-text"><strong>Tổng giá:</strong> @booking.TotalPrice.ToString("N0") VNĐ</p>
+                                <p class="card-text"><strong>Trạng thái:</strong> <span class="badge @(booking.Status == "Confirmed" ? "bg-success" : booking.Status == "Pending" ? "bg-warning" : "bg-danger")">@(booking.Status ?? "Không xác định")</span></p>
+                                <p class="card-text"><strong>Thanh toán:</strong> <span class="badge @(booking.PaymentStatus == "Paid" ? "bg-success" : "bg-warning")">@(booking.PaymentStatus ?? "Không xác định")</span></p>
+                                <div class="d-flex justify-content-between mt-3">
+                                    <a asp-action="Details" asp-route-id="@booking.BookingId" class="btn btn-outline-info btn-sm">Chi tiết</a>
+                                    <a asp-action="Cancel" asp-route-id="@booking.BookingId" class="btn btn-outline-danger btn-sm">Hủy</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center py-5">
+                    <p class="text-muted">Không có đặt phòng nào.</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Phần Phân trang -->
+@if (ViewData["TotalPages"] != null && (int)ViewData["TotalPages"] > 1)
+{
+    <section class="pagination-section py-3">
+        <div class="container">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    @if (ViewData["CurrentPage"] != null && (int)ViewData["CurrentPage"] > 1)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" asp-action="Index" asp-route-page="@((int)ViewData["CurrentPage"] - 1)" asp-route-search="@ViewData["Search"]">Previous</a>
+                        </li>
+                    }
+
+                    @for (int i = 1; i <= (int)ViewData["TotalPages"]; i++)
+                    {
+                        <li class="page-item @(i == (int)ViewData["CurrentPage"] ? "active" : "")">
+                            <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-search="@ViewData["Search"]">@i</a>
+                        </li>
+                    }
+
+                    @if (ViewData["CurrentPage"] != null && ViewData["TotalPages"] != null && (int)ViewData["CurrentPage"] < (int)ViewData["TotalPages"])
+                    {
+                        <li class="page-item">
+                            <a class="page-link" asp-action="Index" asp-route-page="@((int)ViewData["CurrentPage"] + 1)" asp-route-search="@ViewData["Search"]">Next</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </section>
+}
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.alert').fadeIn().delay(3000).fadeOut('slow');
+            $('.booking-card').hover(
+                function () { $(this).addClass('shadow-lg').css('transform', 'translateY(-5px)'); },
+                function () { $(this).removeClass('shadow-lg').css('transform', 'translateY(0)'); }
+            );
+        });
+    </script>
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #007bff, #00d4ff);
+        }
+
+        .booking-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .booking-card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .badge {
+            font-size: 0.9rem;
+            padding: 0.5em 1em;
+        }
+
+        .pagination .page-link {
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    </style>
+}

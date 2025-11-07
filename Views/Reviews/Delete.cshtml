@@ -1,0 +1,42 @@
+@model BookingHomestay.ViewModels.ReviewViewModel
+
+@{
+    ViewData["Title"] = "Xác nhận xóa đánh giá";
+}
+
+<div class="container py-5">
+    <h2>Xác nhận xóa đánh giá</h2>
+
+    <div class="alert alert-warning">
+        Bạn có chắc chắn muốn xóa đánh giá <strong>@Model.Title</strong> không?
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-3">Tiêu đề</dt>
+        <dd class="col-sm-9">@Model.Title</dd>
+
+        <dt class="col-sm-3">Phòng</dt>
+        <dd class="col-sm-9">@Model.Room?.RoomName</dd>
+
+        <dt class="col-sm-3">Khách hàng</dt>
+        <dd class="col-sm-9">@Model.Customer?.FullName</dd>
+
+        <dt class="col-sm-3">Điểm</dt>
+        <dd class="col-sm-9">@Model.Rating/5</dd>
+
+        <dt class="col-sm-3">Nhận xét</dt>
+        <dd class="col-sm-9">@(Model.Comment ?? "Không có nhận xét.")</dd>
+
+        <dt class="col-sm-3">Trạng thái</dt>
+        <dd class="col-sm-9">@Model.Status</dd>
+
+        <dt class="col-sm-3">Ngày đánh giá</dt>
+        <dd class="col-sm-9">@Model.ReviewDate.ToString("dd/MM/yyyy")</dd>
+    </dl>
+
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="ReviewId" />
+        <button type="submit" class="btn btn-danger">Xóa</button>
+        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>

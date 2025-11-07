@@ -1,0 +1,46 @@
+@model BookingHomestay.Models.Booking
+
+@{
+    ViewData["Title"] = "Thanh toán đặt phòng";
+}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Thanh toán đặt phòng: @Model.Room.RoomName</h2>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Thông tin đặt phòng</h5>
+                    <p><strong>Phòng:</strong> @Model.Room.RoomName</p>
+                    <p><strong>Khách sạn:</strong> @Model.Room.Hotel?.HotelName</p>
+                    <p><strong>Khách hàng:</strong> @Model.Customer.FullName</p>
+                    <p><strong>Ngày nhận phòng:</strong> @Model.CheckInDate.ToString("dd/MM/yyyy")</p>
+                    <p><strong>Ngày trả phòng:</strong> @Model.CheckOutDate.ToString("dd/MM/yyyy")</p>
+                    <p><strong>Tổng giá:</strong> @Model.TotalPrice.ToString("N0") đồng</p>
+
+                    <form asp-action="Pay" method="post">
+                        <input type="hidden" name="bookingId" value="@Model.BookingId" />
+                        <div class="form-group mb-3">
+                            <label for="paymentMethod" class="control-label">Phương thức thanh toán</label>
+                            <select id="paymentMethod" name="paymentMethod" class="form-control" required>
+                                <option value="">Chọn phương thức</option>
+                                <option value="VNPay">VNPay</option>
+                                <option value="BankCard">Thẻ ngân hàng</option>
+                                <option value="Cash">Tiền mặt</option>
+                            </select>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success">Thanh toán</button>
+                            <a asp-controller="Booking" asp-action="Index" class="btn btn-secondary">Quay lại</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

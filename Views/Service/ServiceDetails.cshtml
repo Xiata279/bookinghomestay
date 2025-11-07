@@ -1,0 +1,9 @@
+@model BookingHomestay.Models.Service
+
+<div class="container">
+    <h2>@Model.ServiceName</h2>
+    <!-- Nếu chưa thêm ImageUrl vào lớp Service, hãy comment hoặc bỏ dòng này -->
+    <!-- <img src="@Model.ImageUrl" alt="@Model.ServiceName" class="img-fluid mb-3"> -->
+    <p>@Model.Description</p>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Quay lại</a>
+</div>

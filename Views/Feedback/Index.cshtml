@@ -1,0 +1,65 @@
+@model List<BookingHomestay.Models.Feedback>
+
+@{
+    ViewData["Title"] = "Danh sách phản hồi";
+}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Danh sách phản hồi</h2>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Gửi phản hồi mới</a>
+    </p>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success mt-3">@TempData["SuccessMessage"]</div>
+    }
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-primary">
+            <tr>
+                <th>Khách hàng</th>
+                <th>Nội dung</th>
+                <th>Đánh giá</th>
+                <th>Ngày gửi</th>
+                <th>Trạng thái</th>
+                <th>Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Any())
+            {
+                foreach (var feedback in Model)
+                {
+                    <tr>
+                        <td>@(feedback.Customer != null ? feedback.Customer.FullName : "Không xác định")</td>
+                        <td>@feedback.Content</td>
+                        <td>@feedback.Rating</td>
+                        <td>@feedback.FeedbackDate.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@(feedback.Status ?? "Chưa xử lý")</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@feedback.FeedbackId" class="btn btn-warning btn-sm">Sửa</a>
+                            <a asp-action="Delete" asp-route-id="@feedback.FeedbackId" class="btn btn-danger btn-sm">Xóa</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="text-center">Không có phản hồi nào.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () { $('.alert').fadeOut('slow'); }, 3000);
+        });
+    </script>
+}

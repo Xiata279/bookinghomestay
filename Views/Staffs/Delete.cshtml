@@ -1,0 +1,41 @@
+@model BookingHomestay.ViewModels.StaffViewModel
+
+@{
+    ViewData["Title"] = "Xác nhận xóa nhân viên";
+}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Xác nhận xóa nhân viên</h2>
+
+    <div class="alert alert-warning">
+        Bạn có chắc chắn muốn xóa nhân viên <strong>@Model.FullName</strong> không?
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-3">Họ tên</dt>
+        <dd class="col-sm-9">@Model.FullName</dd>
+
+        <dt class="col-sm-3">Vai trò</dt>
+        <dd class="col-sm-9">@Model.Role</dd>
+
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">@Model.Email</dd>
+
+        <dt class="col-sm-3">Số điện thoại</dt>
+        <dd class="col-sm-9">@Model.Phone</dd>
+
+        <dt class="col-sm-3">Khách sạn</dt>
+        <dd class="col-sm-9">@(Model.Hotel?.HotelName ?? "Không có khách sạn")</dd>
+
+        <dt class="col-sm-3">Ngày tạo</dt>
+        <dd class="col-sm-9">@Model.CreatedAt.ToString("dd/MM/yyyy")</dd>
+    </dl>
+
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="StaffId" />
+        <div class="text-center">
+            <button type="submit" class="btn btn-danger">Xóa</button>
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        </div>
+    </form>
+</div>
